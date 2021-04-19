@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_for_calc_portrait"
+    android:background="@drawable/background_for_calc_landscape"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -24,7 +24,7 @@
         android:id="@+id/digits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="70dp"
         android:background="@color/white"
         android:gravity="end"
         android:padding="10sp"
