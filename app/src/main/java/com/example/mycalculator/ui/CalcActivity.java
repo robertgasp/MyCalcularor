@@ -218,6 +218,7 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
     public String getDigits() {
         String value = String.valueOf(digits.getText());
         return value;
+
     }
 
 
