@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_for_calc_portrait"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.CalcActivity">
 
     <TextView
         android:id="@+id/expression"
@@ -20,7 +20,8 @@
         app:layout_constraintBottom_toTopOf="@+id/digits"
         tools:ignore="MissingConstraints" />
 
-    <EditText
+
+    <TextView
         android:id="@+id/digits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,14 +29,14 @@
         android:background="@color/white"
         android:gravity="end"
         android:padding="10sp"
-        android:text="@string/zero"
+
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/numbers"
         app:layout_constraintTop_toBottomOf="@+id/expression"
         app:layout_constraintTop_toTopOf="parent">
 
-    </EditText>
+    </TextView>
 
 
     <GridLayout
@@ -59,7 +60,7 @@
             android:textSize="25sp" />
 
         <Button
-            android:id="@+id/btn_CE"
+            android:id="@+id/btn_CD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -80,12 +81,12 @@
             android:textSize="25sp" />
 
         <Button
-            android:id="@+id/btn_devision"
+            android:id="@+id/btn_division"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_devision"
+            android:text="@string/button_division"
             android:textColor="@color/black"
             android:textSize="25sp" />
 
