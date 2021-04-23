@@ -2,8 +2,8 @@
     <string name="app_name">MyCalculator</string>
     <string name="buttonAC">AC</string>
     <string name="button_percent">%</string>
-    <string name="button_CE">CE</string>
-    <string name="button_devision">/</string>
+    <string name="button_CE">CD</string>
+    <string name="button_division">/</string>
     <string name="button_7">7</string>
     <string name="button_8">8</string>
     <string name="button_9">9</string>
