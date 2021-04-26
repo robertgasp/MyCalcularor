@@ -89,48 +89,12 @@ public class CalcPresenter {
             result = calculator.oper(value1, value2, Operations.PERCENT);
             activity.showResult(result);
         }
-
     }
 
-    public void clickButton1() {
-        activity.appendDigits("1");
+    public void clickButtonNumber(int i){
+        activity.appendDigits(String.valueOf(i));
     }
 
-    public void clickButton2() {
-        activity.appendDigits("2");
-    }
-
-    public void clickButton3() {
-        activity.appendDigits("3");
-    }
-
-    public void clickButton4() {
-        activity.appendDigits("4");
-    }
-
-    public void clickButton5() {
-        activity.appendDigits("5");
-    }
-
-    public void clickButton6() {
-        activity.appendDigits("6");
-    }
-
-    public void clickButton7() {
-        activity.appendDigits("7");
-    }
-
-    public void clickButton8() {
-        activity.appendDigits("8");
-    }
-
-    public void clickButton9() {
-        activity.appendDigits("9");
-    }
-
-    public void clickButton0() {
-        activity.appendDigits("0");
-    }
 
     public void clickButtonDot() {
         activity.appendDigits(".");
