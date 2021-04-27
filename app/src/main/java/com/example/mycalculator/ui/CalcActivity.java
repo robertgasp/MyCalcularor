@@ -25,18 +25,22 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
     private final static String EXPRESSION_KEY = "EXPRESSION_KEY";
     private final static String DIGITS_KEY = "DIGITS_KEY";
 
+    private final int[] numberButton={R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3,
+            R.id.btn_4, R.id.btn_5, R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         presenter = new CalcPresenter(this, new CalcMainLogic());
 
 
         expression = findViewById(R.id.expression);
         digits = findViewById(R.id.digits);
+
+
 
 
         findViewById(R.id.btn_AC).setOnClickListener(new View.OnClickListener() {
@@ -88,82 +92,8 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
             }
         });
 
-        findViewById(R.id.btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton1();
-            }
-        });
-
-        findViewById(R.id.btn_2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton2();
-            }
-        });
-
-        findViewById(R.id.btn_3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton3();
-            }
-        });
-
-        findViewById(R.id.btn_4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton4();
-            }
-        });
-
-        findViewById(R.id.btn_5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton5();
-            }
-        });
-
-        findViewById(R.id.btn_6).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton6();
-            }
-        });
-
-        findViewById(R.id.btn_7).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton7();
-            }
-        });
-
-        findViewById(R.id.btn_8).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton8();
-            }
-        });
-
-        findViewById(R.id.btn_9).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton9();
-            }
-        });
-
-        findViewById(R.id.btn_0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButton0();
-            }
-        });
-
-        findViewById(R.id.btn_dot).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonDot();
-            }
-        });
+        findViewById(R.id.btn_dot).setOnClickListener(v -> presenter.clickButtonDot());
+        determButtonNumberListener();
 
 //        findViewById(R.id.btn_percent).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -172,6 +102,15 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
 //            }
 //        });
 
+    }
+
+    public void determButtonNumberListener(){
+        for (int i = 0; i <numberButton.length ; i++) {
+            int index = i;
+            findViewById(numberButton[i]).setOnClickListener(v -> {
+                presenter.clickButtonNumber(index);
+            });
+        }
     }
 
     @Override
@@ -197,15 +136,12 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
         DecimalFormat decimalFormat = new DecimalFormat("#.############");
         String resultF = decimalFormat.format(result);
         digits.setText(resultF);
-
-
     }
 
     @Override
     public void clearEveryThing(String clear) {
         expression.setText("");
         digits.setText("");
-
     }
 
     @Override
@@ -218,7 +154,6 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
     public String getDigits() {
         String value = String.valueOf(digits.getText());
         return value;
-
     }
 
 

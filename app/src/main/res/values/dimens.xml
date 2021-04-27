@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSizeDigits">40sp</dimen>
+    <dimen name="textSizeExpression">40sp</dimen>
+    <dimen name="textSizeOfButtons">35sp</dimen>
+    <dimen name="height_of_buttons">70dp</dimen>
+    <dimen name="width_of_buttons">100dp</dimen>
+
+    <dimen name="textSizeDigitsLand">25sp</dimen>
+    <dimen name="textSizeExpressionLand">25sp</dimen>
+    <dimen name="textSizeOfButtonsLand">15sp</dimen>
+    <dimen name="height_of_buttonsLand">50dp</dimen>
+
+</resources>
