@@ -20,4 +20,12 @@
     <string name="button_dot">,</string>
     <string name="button_equal">=</string>
     <string name="zero">0</string>
+    <string name="options">Настройки</string>
+    <string name="choose_theme">Выберите тему:</string>
+    <string name="check_to_Light_theme">Светлая тема</string>
+    <string name="check_to_dark_theme">Темная тема</string>
+    <string name="digits">digits</string>
+    <string name="default_theme">Тема по умолчанию</string>
+    <string name="check_to_green_theme">Моя зеленая тема</string>
+    <string name="buttonBack">назад</string>
 </resources>

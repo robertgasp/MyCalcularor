@@ -3,9 +3,15 @@ package com.example.mycalculator.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,96 +22,77 @@ import com.example.mycalculator.main.CalcMainLogic;
 import com.example.mycalculator.main.Operations;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
-public class CalcActivity extends AppCompatActivity implements CalcViewInterface, View.OnClickListener {
+import android.content.Context;
+
+public class CalcActivity extends AppCompatActivity implements View.OnClickListener, CalcViewInterface  {
 
     private TextView expression, digits;
-    private CalcPresenter presenter;
-    private CalcActivity activity;
+
+    CalcPresenter presenter = new CalcPresenter(this, new CalcMainLogic());
+    private CalcActivityExecution savedExpression;
+    private CalcActivityExecution savedDigits;
     private final static String EXPRESSION_KEY = "EXPRESSION_KEY";
     private final static String DIGITS_KEY = "DIGITS_KEY";
+    Intent intent;
+    private ThemeStorage themeStorage;
 
-    private final int[] numberButton={R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3,
+    private final int[] numberButton = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3,
             R.id.btn_4, R.id.btn_5, R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        presenter = new CalcPresenter(this, new CalcMainLogic());
+        super.onCreate(savedInstanceState);
+
+        themeStorage = new ThemeStorage(this);
+        setTheme(themeStorage.getCurrentTheme().getRes());
+
+        setContentView(R.layout.activity_main);
 
 
         expression = findViewById(R.id.expression);
         digits = findViewById(R.id.digits);
 
 
+        findViewById(R.id.btn_options).setOnClickListener(v -> {
+            intent = new Intent(this, OptionsActivity.class);
 
+            startActivity(intent);
 
-        findViewById(R.id.btn_AC).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonAC();
-            }
         });
 
-        findViewById(R.id.btn_CD).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonCD();
-            }
-        });
 
-        findViewById(R.id.btn_plus).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonPlus();
-            }
-        });
+        findViewById(R.id.btn_AC).setOnClickListener(v -> presenter.clickButtonAC());
 
-        findViewById(R.id.btn_minus).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonMinus();
-            }
-        });
+        findViewById(R.id.btn_CD).setOnClickListener(v -> presenter.clickButtonCD());
 
-        findViewById(R.id.btn_multiply).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonMul();
-            }
-        });
+        findViewById(R.id.btn_plus).setOnClickListener(v -> presenter.clickButtonPlus());
 
-        findViewById(R.id.btn_division).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonDiv();
-            }
-        });
+        findViewById(R.id.btn_minus).setOnClickListener(v -> presenter.clickButtonMinus());
 
-        findViewById(R.id.btn_equal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clickButtonEqual();
-            }
-        });
+        findViewById(R.id.btn_multiply).setOnClickListener(v -> presenter.clickButtonMul());
+
+        findViewById(R.id.btn_division).setOnClickListener(v -> presenter.clickButtonDiv());
+
+        findViewById(R.id.btn_equal).setOnClickListener(v -> presenter.clickButtonEqual());
 
         findViewById(R.id.btn_dot).setOnClickListener(v -> presenter.clickButtonDot());
         determButtonNumberListener();
 
-//        findViewById(R.id.btn_percent).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                presenter.clickButtonPercent();
-//            }
-//        });
-
+        findViewById(R.id.btn_percent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.clickButtonPercent();
+            }
+        });
     }
 
-    public void determButtonNumberListener(){
-        for (int i = 0; i <numberButton.length ; i++) {
+
+    public void determButtonNumberListener() {
+        for (int i = 0; i < numberButton.length; i++) {
             int index = i;
             findViewById(numberButton[i]).setOnClickListener(v -> {
                 presenter.clickButtonNumber(index);
@@ -113,63 +100,40 @@ public class CalcActivity extends AppCompatActivity implements CalcViewInterface
         }
     }
 
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString(EXPRESSION_KEY, String.valueOf(expression.getText()));
-        outState.putString(DIGITS_KEY, String.valueOf(digits.getText()));
         super.onSaveInstanceState(outState);
+        savedExpression = new CalcActivityExecution(String.valueOf(expression.getText()));
+        savedDigits = new CalcActivityExecution(String.valueOf(digits.getText()));
+        outState.putParcelable(EXPRESSION_KEY, savedExpression);
+        outState.putParcelable(DIGITS_KEY, savedDigits);
     }
 
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        String restoredExpression = savedInstanceState.getString(EXPRESSION_KEY);
-        expression.setText(restoredExpression);
+    protected void onRestoreInstanceState(@NonNull Bundle outState) {
 
-        String restoredDigits = savedInstanceState.getString(DIGITS_KEY);
-        digits.setText(restoredDigits);
-        super.onRestoreInstanceState(savedInstanceState);
-    }
+        super.onRestoreInstanceState(outState);
+        savedExpression = outState.getParcelable(EXPRESSION_KEY);
+        savedDigits = outState.getParcelable(DIGITS_KEY);
 
-
-    @Override
-    public void showResult(double result) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.############");
-        String resultF = decimalFormat.format(result);
-        digits.setText(resultF);
-    }
-
-    @Override
-    public void clearEveryThing(String clear) {
-        expression.setText("");
-        digits.setText("");
-    }
-
-    @Override
-    public void clearDigits(String blank) {
-        digits.setText("");
-    }
-
-
-    @Override
-    public String getDigits() {
-        String value = String.valueOf(digits.getText());
-        return value;
-    }
-
-
-    @Override
-    public void appendDigits(String number) {
-        digits.append(String.valueOf(number));
-    }
-
-    @Override
-    public void appendExpression(String exp) {
-        expression.append(exp);
+        expression.setText(savedExpression.getSavedScreen());
+        digits.setText(savedDigits.getSavedScreen());
     }
 
     @Override
     public void onClick(View v) {
-
     }
+
+@Override
+    public void showExpression(String string) {
+        expression.setText(string);
+    }
+
+    @Override
+    public void showDigits(String string) {
+        digits.setText(string);
+    }
+
 
 }
