@@ -4,242 +4,186 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_for_calc_landscape"
     android:orientation="vertical"
     tools:context=".ui.CalcActivity">
 
-    <TextView
-        android:id="@+id/expression"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="end"
-        android:padding="10sp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/digits"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/expression"
+            style="@style/Screen_digits_Land"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/verdana"
+            android:gravity="end"
+            android:padding="@dimen/textViewPadding"
+            app:layout_constraintBottom_toTopOf="@+id/digits"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/digits"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:background="@color/white"
-        android:gravity="end"
-        android:padding="10sp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/numbers"
-        app:layout_constraintTop_toBottomOf="@+id/expression"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/digits"
+            style="@style/Screen_digits_Land"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/TextViewMarginTopLand"
+            android:gravity="end"
+            android:padding="@dimen/textViewPadding"
+            app:layout_constraintBottom_toTopOf="@+id/numbers"
+            app:layout_constraintTop_toBottomOf="@+id/expression"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </TextView>
+        </TextView>
+
+        <ImageView
+            android:id="@+id/btn_options"
+            android:layout_width="@dimen/button_setting_image_size"
+            android:layout_height="@dimen/button_setting_image_size"
+            android:layout_margin="@dimen/imageMargin"
+            android:src="@drawable/settings_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/digits"
+            tools:ignore="MissingConstraints">
+
+        </ImageView>
 
 
-    <GridLayout
-        android:id="@+id/numbers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:columnCount="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/digits">
-
-        <Button
-            android:id="@+id/btn_AC"
+        <GridLayout
+            android:id="@+id/numbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/red"
-            android:text="@string/buttonAC"
-            android:textSize="25sp" />
+            android:layout_marginTop="@dimen/GridLayoutMarginTop"
+            android:columnCount="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/digits">
 
-        <Button
-            android:id="@+id/btn_CD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/red"
-            android:text="@string/button_CE"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_AC"
+                style="@style/Buttons_red_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/buttonAC" />
 
-        <Button
-            android:id="@+id/btn_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_percent"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_CD"
+                style="@style/Buttons_red_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_CE" />
 
-        <Button
-            android:id="@+id/btn_division"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_division"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_percent"
+                style="@style/Button_Operators_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_percent" />
 
-        <Button
-            android:id="@+id/btn_7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_7"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_division"
+                style="@style/Button_Operators_Land"
+                android:layout_gravity="center"
+                android:text="@string/button_division" />
 
-        <Button
-            android:id="@+id/btn_8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_8"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_7"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_7" />
 
-        <Button
-            android:id="@+id/btn_9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_9"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_8"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_8" />
 
-        <Button
-            android:id="@+id/btn_multiply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_multiply"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_9"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_9" />
 
-        <Button
-            android:id="@+id/btn_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_4"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_multiply"
+                style="@style/Button_Operators_Land"
+                android:layout_gravity="center"
+                android:text="@string/button_multiply" />
 
-        <Button
-            android:id="@+id/btn_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_5"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_4"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_4" />
 
-        <Button
-            android:id="@+id/btn_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_6"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_5"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_5" />
 
-        <Button
-            android:id="@+id/btn_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_minus"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_6"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_6" />
 
-        <Button
-            android:id="@+id/btn_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_1"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_minus"
+                style="@style/Button_Operators_Land"
+                android:layout_gravity="center"
+                android:text="@string/button_minus" />
 
-        <Button
-            android:id="@+id/btn_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_2"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_1"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_1" />
 
-        <Button
-            android:id="@+id/btn_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_3"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_2"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_2" />
 
-        <Button
-            android:id="@+id/btn_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/number_znaki"
-            android:text="@string/button_plus"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_3"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_3" />
 
-        <Button
-            android:id="@+id/btn_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_0"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_plus"
+                style="@style/Button_Operators_Land"
+                android:layout_gravity="center"
+                android:text="@string/button_plus" />
 
-        <Button
-            android:id="@+id/btn_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/gray_600"
-            android:text="@string/button_dot"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_0"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_0" />
 
-        <Button
-            android:id="@+id/btn_equal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnSpan="2"
-            android:layout_gravity="fill_horizontal"
-            android:backgroundTint="@color/orange"
-            android:text="@string/button_equal"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/btn_dot"
+                style="@style/Button_Digit_Style_Land"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/buttonMarginEnd"
+                android:text="@string/button_dot" />
 
-
-    </GridLayout>
+            <Button
+                android:id="@+id/btn_equal"
+                style="@style/Button_equal_Land"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/button_equal" />
+        </GridLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

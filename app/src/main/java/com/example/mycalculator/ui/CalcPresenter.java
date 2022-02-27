@@ -1,21 +1,39 @@
 package com.example.mycalculator.ui;
 
-import com.example.mycalculator.R;
-import com.example.mycalculator.main.CalcExpressionInterface;
-import com.example.mycalculator.main.CalcMainLogic;
-import com.example.mycalculator.main.Operations;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.TextureView;
+import android.view.View;
+import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.util.concurrent.ExecutionException;
+import androidx.annotation.NonNull;
+
+import com.example.mycalculator.main.CalcExpressionInterface;
+import com.example.mycalculator.main.OperationPercent;
+import com.example.mycalculator.main.Operations;
 
 public class CalcPresenter {
     private CalcExpressionInterface calculator;
     private CalcViewInterface activity;
 
+    private CalcActivityExecution calcActivityExecution;
+
+    private final static String EXPRESSION_KEY = "EXPRESSION_KEY";
+    private final static String DIGITS_KEY = "DIGITS_KEY";
+
     double value1 = 0, value2 = 0;
-    double digits;
+    static double value1ForPercent;
+    char operationForPercent;
+    CalcActivity calcActivity;
+
+
+    Bundle outState;
+
     double result;
     char op;
+    Intent intent;
 
     public CalcPresenter(CalcViewInterface activity, CalcExpressionInterface calculator) {
         this.calculator = calculator;
@@ -24,117 +42,104 @@ public class CalcPresenter {
 
 
     void clickButtonAC() {
-        activity.clearEveryThing("");
+        calcActivityExecution.clearEveryThing();
     }
 
     public void clickButtonCD() {
-        activity.clearDigits("");
+        calcActivityExecution.clearDigits();
     }
 
     public void clickButtonPlus() {
-        value1 = Double.parseDouble(activity.getDigits());
-        activity.appendExpression(activity.getDigits() + " + ");
-        activity.clearDigits("");
+        value1 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+        value1ForPercent = value1;
+
+
+        calcActivityExecution.appendExpression(" + ");
+        calcActivityExecution.clearDigits();
         op = '+';
 
     }
 
     public void clickButtonMinus() {
-        value1 = Double.parseDouble(activity.getDigits());
-        activity.appendExpression(activity.getDigits() + " - ");
-        activity.clearDigits("");
-        op = '-';
+        if (String.valueOf(outState.getParcelable(DIGITS_KEY)).isEmpty()) {
+            calcActivityExecution.appendDigits("-");
+        } else {
+            value1 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+            value1ForPercent = value1;
+            calcActivityExecution.appendExpression(" - ");
+            calcActivityExecution.clearDigits();
+            op = '-';
+        }
     }
 
     public void clickButtonMul() {
-        value1 = Double.parseDouble(activity.getDigits());
-        activity.appendExpression(activity.getDigits() + " * ");
-        activity.clearDigits("");
+        value1 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+        value1ForPercent = value1;
+        calcActivityExecution.appendExpression(" * ");
+        calcActivityExecution.clearDigits();
         op = '*';
 
     }
 
     public void clickButtonDiv() {
-        value1 = Double.parseDouble(activity.getDigits());
-        activity.appendExpression(activity.getDigits() + " / ");
-        activity.clearDigits("");
+        value1 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+        value1ForPercent = value1;
+        calcActivityExecution.appendExpression(" / ");
+        calcActivityExecution.clearDigits();
         op = '/';
     }
 
-//    public void clickButtonPercent() {
-//        value1 = Double.parseDouble(activity.getDigits());
-//
-//        activity.clearDigits("");
-//        op = '%';
-//    }
-
-    public void clickButtonEqual() {
-        value2 = Double.parseDouble(activity.getDigits());
-        activity.appendExpression(value2 + " = ");
-        if (op == '+') {
-            result = calculator.oper(value1, value2, Operations.PLUS);
-            activity.showResult(result);
-
-        } else if (op == '-') {
-            result = calculator.oper(value1, value2, Operations.MINUS);
-            activity.showResult(result);
-        } else if (op == '*') {
-            result = calculator.oper(value1, value2, Operations.MUL);
-            activity.showResult(result);
-        } else if (op == '/') {
-            result = calculator.oper(value1, value2, Operations.DIV);
-            activity.showResult(result);
-        } else if (op == '%') {
-            activity.appendExpression(activity.getDigits() + "% =  ");
-            result = calculator.oper(value1, value2, Operations.PERCENT);
-            activity.showResult(result);
+    public void clickButtonPercent() {
+        value1 = value1ForPercent;
+        value2 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+        String str = outState.getParcelable(EXPRESSION_KEY);
+        operationForPercent = str.charAt(str.length() - 2);
+        calcActivityExecution.appendExpression(outState.getParcelable(DIGITS_KEY) + "% =");
+        calcActivityExecution.clearDigits();
+        if (operationForPercent == '+') {
+            result = calculator.operPercent(value1, value2, OperationPercent.PLUS);
+            calcActivityExecution.showResult(result);
+        } else if (operationForPercent == '-') {
+            result = calculator.operPercent(value1, value2, OperationPercent.MINUS);
+            calcActivityExecution.showResult(result);
+        } else if (operationForPercent == '*') {
+            result = calculator.operPercent(value1, value2, OperationPercent.MUL);
+            calcActivityExecution.showResult(result);
+        } else if (operationForPercent == '/') {
+            result = calculator.operPercent(value1, value2, OperationPercent.DIV);
+            calcActivityExecution.showResult(result);
         }
 
     }
 
-    public void clickButton1() {
-        activity.appendDigits("1");
+    public void clickButtonEqual() {
+        value2 = Double.parseDouble(outState.getParcelable(DIGITS_KEY));
+        calcActivityExecution.appendExpression(value2 + " = ");
+        if (op == '+') {
+            result = calculator.oper(value1, value2, Operations.PLUS);
+
+            calcActivityExecution.showResult(result);
+        } else if (op == '-') {
+            result = calculator.oper(value1, value2, Operations.MINUS);
+            calcActivityExecution.showResult(result);
+        } else if (op == '*') {
+            result = calculator.oper(value1, value2, Operations.MUL);
+            calcActivityExecution.showResult(result);
+        } else if (op == '/') {
+            result = calculator.oper(value1, value2, Operations.DIV);
+            calcActivityExecution.showResult(result);
+        }
     }
 
-    public void clickButton2() {
-        activity.appendDigits("2");
+    public void clickButtonNumber(int i) {
+        calcActivityExecution.appendDigits(String.valueOf(i));
     }
 
-    public void clickButton3() {
-        activity.appendDigits("3");
-    }
-
-    public void clickButton4() {
-        activity.appendDigits("4");
-    }
-
-    public void clickButton5() {
-        activity.appendDigits("5");
-    }
-
-    public void clickButton6() {
-        activity.appendDigits("6");
-    }
-
-    public void clickButton7() {
-        activity.appendDigits("7");
-    }
-
-    public void clickButton8() {
-        activity.appendDigits("8");
-    }
-
-    public void clickButton9() {
-        activity.appendDigits("9");
-    }
-
-    public void clickButton0() {
-        activity.appendDigits("0");
-    }
 
     public void clickButtonDot() {
-        activity.appendDigits(".");
+        calcActivityExecution.appendDigits(".");
     }
+
 
 }
 

@@ -7,17 +7,22 @@ import com.example.mycalculator.main.Operations;
 public interface CalcViewInterface {
 
 
-    void showResult(double result);
+   void showExpression(String string);
 
-    void clearEveryThing(String blank);
+   void showDigits(String string);
 
-    void clearDigits(String blank);
+  //  void showResult(double result);
 
-    String getDigits();
+ //   void clearEveryThing();
 
-    void appendDigits(String dig);
+ //   void clearDigits();
 
-    void appendExpression(String exp);
+ //   String getDigits();
+  //  String getExpression();
+
+  //  void appendDigits(String dig);
+
+  //  void appendExpression(String exp);
 
 
 }
