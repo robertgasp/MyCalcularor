@@ -42,6 +42,10 @@
         <item name="android:layout_width">@dimen/width_of_buttons</item>
     </style>
 
+    <style name="Button_fignya">
+        <item name="android:background">@color/orange</item>
+    </style>
+
 
     <style name="Screen_digits_Land">
         <item name="android:background">@color/white</item>
@@ -80,4 +84,6 @@
         <item name="android:layout_height">@dimen/height_of_buttonsLand</item>
         <item name="android:layout_width">@dimen/width_of_buttons</item>
     </style>
+
+
 </resources>

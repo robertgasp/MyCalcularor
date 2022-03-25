@@ -9,11 +9,12 @@ public interface CalcViewInterface {
 
     void showResult(double result);
 
-    void clearEveryThing(String blank);
+    void clearEveryThing();
 
-    void clearDigits(String blank);
+    void clearDigits();
 
     String getDigits();
+    String getExpression();
 
     void appendDigits(String dig);
 

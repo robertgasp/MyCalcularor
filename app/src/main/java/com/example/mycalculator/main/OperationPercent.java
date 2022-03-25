@@ -1,10 +1,8 @@
 package com.example.mycalculator.main;
 
-public enum Operations {
+public enum OperationPercent {
     PLUS,
     MINUS,
     MUL,
     DIV,
-    PERCENT
 }
-
