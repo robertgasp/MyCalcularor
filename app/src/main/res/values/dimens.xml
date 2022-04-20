@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSizeDigits">40sp</dimen>
+    <dimen name="textSizeExpression">40sp</dimen>
+    <dimen name="textSizeOfButtons">35sp</dimen>
+    <dimen name="height_of_buttons">70dp</dimen>
+    <dimen name="width_of_buttons">100dp</dimen>
+
+    <dimen name="textSizeDigitsLand">25sp</dimen>
+    <dimen name="textSizeExpressionLand">25sp</dimen>
+    <dimen name="textSizeOfButtonsLand">15sp</dimen>
+    <dimen name="height_of_buttonsLand">50dp</dimen>
+
+    <!--option layout dimens-->
+    <dimen name="options_title_size_text">50sp</dimen>
+    <dimen name="ordinary_text">35sp</dimen>
+    <dimen name="margin_between_radio_buttons">20dp</dimen>
+    <dimen name="button_setting_image_size">50dp</dimen>
+    <dimen name="imageMargin">20dp</dimen>
+    <dimen name="textViewPadding">10sp</dimen>
+    <dimen name="TextViewMarginFromTop">300dp</dimen>
+    <dimen name="GridLayoutMarginTop">10dp</dimen>
+    <dimen name="buttonMarginEnd">10dp</dimen>
+    <dimen name="TextViewMarginTopLand">50dp</dimen>
+
+</resources>
